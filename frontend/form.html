@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Novel Blog</title>
+  <link rel="stylesheet" href="form.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+ 
+
+ <!-- Header with image only -->
+  <header class="hero-header"></header>
+
+  <!-- Attractive content block below image -->
+  <section class="intro">
+    <h1 class="title">అనుకోని ప్రయాణం...</h1>
+    
+    <p>ఎటేపుకో...</p>
+    <p class="subtitle">New chapters every day • Stories that move your heart</p>
+    <a href="#chapters" class="read-now">📚 Start Reading Now</a>
+  </section>
+
+  <main id="chapters" class="chapter-list">
+    <article>
+      <h2><a href="posts/chapter1.html">Chapter 1: కొత్త ఊరు, కొత్త బడి…</a></h2>
+    </article>
+   <!-- <article>
+      <h2><a href="posts/chapter2.html">Chapter 2: Shadows Grow</a></h2>
+      <p>As the night deepens, secrets unfold...</p>
+    </article>-->
+    <article>
+      <h2><a href="posts/chapter2.html">Next Chapters Soon...</a></h2>
+    </article>
+  </main>
+
+
+<section class="feedback-section">
+  <h2 class="feedback-heading">💬 We want your feedback</h2>
+  <form action="/post" method="POST" id="feedbackForm">
+  <textarea id="feedbackInput" name="message" placeholder="Share your thoughts..." required></textarea>
+  <br>
+  <button type="submit" class="submit-button">🚀 Submit Feedback</button>
+</form>
+  <p id="thankYouMessage" class="thank-you" style="display: none;">✅ Your feedback was received. Thanks a lot! 😊</p>
+</section>
+
+
+
+ <footer>
+  <p>&copy; <span id="currentYear"></span> by PHILIP GUNJARI</p>
+</footer>
+
+<!--Toast Popup Message -->
+<div id="feedbackPopup" class="feedback-popup">🎉 Thank you for your feedback!</div>
+
+<!-- Inside public/index.html -->
+<script>
+  document.getElementById('feedbackForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const message = document.getElementById('feedbackInput').value;
+
+    const response = await fetch('/post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({ message })
+    });
+
+    if (response.ok) {
+      document.getElementById('feedbackInput').value = '';
+      document.getElementById('thankYouMessage').style.display = 'block';
+
+      const popup = document.getElementById('feedbackPopup');
+      popup.classList.add('show');
+      setTimeout(() => popup.classList.remove('show'), 3000);
+    }
+  });
+</script>
+
+
+</body>
+</html>
